@@ -2,17 +2,11 @@ package demo.two;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.ImmutableList;
-
-import org.junit.Test;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
+
+import java.util.*;
 
 /**
 * ArraysDemo
@@ -36,6 +30,16 @@ public class ArraysDemo {
 
     log.info("排序之前：{}", JSON.toJSONString(array));
     Arrays.sort(array, Comparator.comparing(SortDTO::getSortTarget));
+    log.info("排序之后：{}", JSON.toJSONString(array));
+  }
+
+  @Test
+  public void testIntSort(){
+    // 我们先把数组的大小初始化成 list 的大小
+    int[] array = new int[]{300,50,200,220};
+
+    log.info("排序之前：{}", JSON.toJSONString(array));
+    Arrays.sort(array);
     log.info("排序之后：{}", JSON.toJSONString(array));
   }
   
@@ -62,7 +66,7 @@ public class ArraysDemo {
     log.info("搜索结果：{}", JSON.toJSONString(array[index]));
   }
 
-  @Data
+  @Data   //生出get、set、toString
   class SortDTO {
 
     private String sortTarget;
@@ -70,6 +74,7 @@ public class ArraysDemo {
     public SortDTO(String sortTarget) {
       this.sortTarget = sortTarget;
     }
+
   }
 
   class SortDTO1 implements Comparable<SortDTO1> {
@@ -97,14 +102,6 @@ public class ArraysDemo {
     Collections.max(list);
   }
 
-  @Test
-  public void testSearch(){
-    //0~10
-    System.out.println("(0 + 10-1) >>> 1:"+((0 + 10-1) >>> 1));
-    System.out.println("(0 + 11-1) >>> 1:"+((0 + 11-1) >>> 1));
-    System.out.println("(1 + 11-1) >>> 1:"+((1 + 11-1) >>> 1));
-    System.out.println("(1 + 10-1) >>> 1:"+((1 + 10-1) >>> 1));
-  }
 
 
 
