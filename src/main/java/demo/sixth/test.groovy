@@ -10,13 +10,15 @@ class ScriptTest {
         exec(data)
     }
 
-    private static threadlcoalFormat = ThreadLocal.withInitial({return new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss")} as java.util.function.Supplier)
+    private static threadlcoalFormat = ThreadLocal.withInitial({
+        return new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+    } as java.util.function.Supplier)
 
 
     def static exec(data) {
         data.invoice_status_code = data.status
         data.invoice_status_type_code = data.red_invoice
-        data.create_time = threadlcoalFormat.get().parse(data.created_at.toString()).getTime()/1000L
+        data.create_time = threadlcoalFormat.get().parse(data.created_at.toString()).getTime() / 1000L
 
         def jsonSlurper = new groovy.json.JsonSlurper()
         data.operator = jsonSlurper.parseText(data.extension)?.operator?.role
@@ -32,7 +34,7 @@ class ScriptTest {
         }
         data.source = jsonSlurper.parseText(data.extension)?.source?.source
         def parent_kdt_id = jsonSlurper.parseText(data.extension) != null && jsonSlurper.parseText(data.extension)?.extraMap != null ?
-                            jsonSlurper.parseText(data.extension)?.extraMap.RETAIL_PARENT_KDT_ID : null
+                jsonSlurper.parseText(data.extension)?.extraMap.RETAIL_PARENT_KDT_ID : null
         data.head_kdt_id = parent_kdt_id != null ? Long.parseLong(parent_kdt_id) : data.kdt_id
     }
 }

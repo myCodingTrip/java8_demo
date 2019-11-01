@@ -1,9 +1,8 @@
 package demo.two;
 
 
-
-import org.junit.Test;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
 
 /**
  * TreeMapDemo
@@ -13,10 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 public class TreeSetDemo {
 
 
-  @Test
-  public void testIterator() {
+    @Test
+    public void testIterator() {
 
 
-  }
+    }
 
 }

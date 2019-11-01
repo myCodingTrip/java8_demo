@@ -7,8 +7,8 @@ package demo.three.flow;
  */
 public interface DomainAbilityBean {
 
-  /**
-   * 领域行为的方法入口
-   */
-  FlowContent invoke(FlowContent content);
+    /**
+     * 领域行为的方法入口
+     */
+    FlowContent invoke(FlowContent content);
 }

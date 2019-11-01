@@ -100,7 +100,7 @@ public class StringDemo {
         String s = "100";
         long beginTime1 = System.currentTimeMillis();
         for (int i = 0; i < 100000; i++) {
-             Long l = Long.valueOf(s);
+            Long l = Long.valueOf(s);
         }
         log.info("valueOf 耗时 {}", System.currentTimeMillis() - beginTime1);
     }
@@ -124,11 +124,11 @@ public class StringDemo {
         field.setAccessible(true);
         // 拿到 string 里面的数组
         char[] value = (char[]) field.get(str);
-        log.info("修改之前{}",str);
-        log.info(str.length()+"");
-        field.set(str,"hello java".toCharArray());
-        log.info("修改之后{}",str);
-        log.info(str.length()+"");
+        log.info("修改之前{}", str);
+        log.info(str.length() + "");
+        field.set(str, "hello java".toCharArray());
+        log.info("修改之后{}", str);
+        log.info(str.length() + "");
     }
 
 }
