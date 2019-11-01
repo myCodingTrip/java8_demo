@@ -3,6 +3,8 @@ package demo.three;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -34,14 +36,26 @@ public class ConcurrentHashMapDemo {
         map.put(59, 59);
     }
 
-    ConcurrentHashMap<Integer, Integer> MAP_1 = new ConcurrentHashMap<>(2);
+    Map<Integer, Integer> MAP_1 = new ConcurrentHashMap<>(2);
 
     @Test
     public void testInit() {
+        MAP_1 = new HashMap<>();//ok
         new Thread(() -> MAP_1.put(1, 1)).start();
         new Thread(() -> MAP_1.put(1, 1)).start();
         System.out.println("nihao");
+    }
 
+    @Test
+    public void testForeach() {
+        Map<Integer, Integer> map = new ConcurrentHashMap<>(2);
+        map = new HashMap<>();
+        map.put(1, 1);
+        map.put(2, 2);
+        map.put(3, 3);
+        for (Object integer : map.entrySet()) {
+            map.put(1, 1);
+        }
     }
 
 }

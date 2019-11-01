@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -79,7 +80,11 @@ public class CopyOnWriteArrayListDemo {
 
     @Test
     public void testIterator() {
-        CopyOnWriteArrayList<String> list = new CopyOnWriteArrayList();
+
+        List<String> list = new CopyOnWriteArrayList<>();
+
+//        list = new ArrayList<>();  //java.util.ConcurrentModificationException
+
         list.add("10");
         list.add("20");
         list.add("30");
