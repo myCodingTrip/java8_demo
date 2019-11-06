@@ -49,13 +49,16 @@ public class ConcurrentHashMapDemo {
     @Test
     public void testForeach() {
         Map<Integer, Integer> map = new ConcurrentHashMap<>(2);
-        map = new HashMap<>();
+        //remove是报错java.util.ConcurrentModificationException，元素存在时才报错
+//        map = new HashMap<>();
         map.put(1, 1);
         map.put(2, 2);
         map.put(3, 3);
-        for (Object integer : map.entrySet()) {
-            map.put(1, 1);
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+            map.remove(entry.getKey());
         }
+        System.out.println(map);
     }
 
 }
