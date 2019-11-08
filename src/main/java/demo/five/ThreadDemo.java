@@ -38,6 +38,7 @@ public class ThreadDemo {
         thread.run();
     }
 
+    //主线程等待子线程执行完再执行
     @Test
     public void join() throws Exception {
         Thread main = Thread.currentThread();
