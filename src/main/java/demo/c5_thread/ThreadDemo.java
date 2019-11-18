@@ -122,17 +122,26 @@ public class ThreadDemo {
         }
     }
 
+    //使当前自旋线程让步，不一直霸占 cpu
     @Test
-    public void testYield() {
+    public void testYield() throws InterruptedException {
+        long start = System.currentTimeMillis();
         boolean stop = false;
         while (!stop) {
             // dosomething
-            Thread.yield();
+            if (System.currentTimeMillis() - start > 6000) {
+                Thread.yield();
+                log.info("yield");
+            }
+            Thread.sleep(100);
         }
     }
 
+    // 子线程 1 去等待子线程 2 执行完成之后才能执行，如何去实现？
     @Test
     public void testJoin2() throws Exception {
+
+        new Thread("1").start();
 
         Thread thread2 = new Thread(new Runnable() {
             @Override
@@ -153,6 +162,7 @@ public class ThreadDemo {
                 log.info("我是子线程 1，开始运行");
                 try {
                     log.info("我是子线程 1，我在等待子线程 2");
+                    //等待子线程 2 执行完成
                     thread2.join();
                     log.info("我是子线程 1，子线程 2 执行完成，我继续执行");
                 } catch (InterruptedException e) {
@@ -161,9 +171,12 @@ public class ThreadDemo {
                 log.info("我是子线程 1，执行完成");
             }
         });
+
         thread1.start();
         thread2.start();
-        Thread.sleep(100000);
+
+        // 必须休眠不然什么都不会输出
+        Thread.sleep(5000);
     }
 
     // 共享变量 1
@@ -171,13 +184,15 @@ public class ThreadDemo {
     // 共享变量 2
     private static final Object share2 = new Object();
 
+    // 简单死锁
     @Test
     public void testDeadLock() throws InterruptedException {
         // 初始化线程 1，线程 1 需要在锁定 share1 共享资源的情况下再锁定 share2
         Thread thread1 = new Thread(() -> {
             synchronized (share1) {
                 try {
-                    Thread.sleep(2000);
+                    log.info("{} start", Thread.currentThread().getName());
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -191,7 +206,8 @@ public class ThreadDemo {
         Thread thread2 = new Thread(() -> {
             synchronized (share2) {
                 try {
-                    Thread.sleep(2000);
+                    log.info("{} start", Thread.currentThread().getName());
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -203,7 +219,7 @@ public class ThreadDemo {
         // 当线程 1、2 启动后，都在等待对方锁定的资源，但都得不到，造成死锁
         thread1.start();
         thread2.start();
-        Thread.sleep(1000000000);
+        Thread.sleep(Integer.MAX_VALUE);
     }
 
 }

@@ -8,16 +8,18 @@ import java.util.concurrent.*;
 @Slf4j
 public class FutureTaskDemo {
 
-    //拿到子线程的返回值
+    //拿到futureTask的返回值 同一线程
     @Test
     public void initCallable() throws ExecutionException, InterruptedException {
         FutureTask futureTask = new FutureTask(new Callable<String>() {
             @Override
             public String call() throws Exception {
-                Thread.sleep(3000);
+                log.info("running");
+                Thread.sleep(1000);
                 return "nihao";
             }
         });
+        // run方法无法开启子线程
         futureTask.run();
         log.info("get ing");
         String result = (String) futureTask.get();
@@ -33,6 +35,7 @@ public class FutureTaskDemo {
                 log.info("{} is run", Thread.currentThread().getName());
             }
         }, "finish");
+        // run方法无法开启子线程
         futureTask.run();
         String result = futureTask.get();
         log.info("run end,result is {}", result);
@@ -49,7 +52,8 @@ public class FutureTaskDemo {
                 new Callable<String>() {
                     @Override
                     public String call() throws Exception {
-                        Thread.sleep(3000);
+                        log.info("running");
+                        Thread.sleep(1000);
                         return "我是子线程" + Thread.currentThread().getName();
                     }
                 });
@@ -66,7 +70,7 @@ public class FutureTaskDemo {
         FutureTask futureTask = new FutureTask(new Callable<String>() {
             @Override
             public String call() throws Exception {
-                Thread.sleep(3000);
+                Thread.sleep(1000);
                 String result = "我是子线程" + Thread.currentThread().getName();
                 log.info("子线程正在运行：{}", Thread.currentThread().getName());
                 return result;
