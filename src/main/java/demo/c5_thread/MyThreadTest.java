@@ -10,6 +10,7 @@ import java.util.concurrent.*;
 @Slf4j
 public class MyThreadTest {
 
+    //主线程结束子线程运行程序会不会退出？
     @Test
     public void mainStopTest() throws InterruptedException {
         Thread t = new Thread(new Runnable() {
@@ -37,7 +38,6 @@ public class MyThreadTest {
         Random random = new Random();
         ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 1,
                 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
-
 
         int i = random.nextInt(bound);
 
