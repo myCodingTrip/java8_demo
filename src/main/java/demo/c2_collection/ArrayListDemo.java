@@ -196,6 +196,11 @@ public class ArrayListDemo {
     }
 
     @Test
+    public void testForeachSet() {
+        List<Integer> list = new ArrayList<Integer>();
+    }
+
+    @Test
     public void testFor() {
         List<Integer> list = new ArrayList<Integer>(5000);
         for (int i = 0; i < 5000; i++) {
